@@ -7,6 +7,7 @@ const builder = new addonBuilder(manifest);
 
 const allSources = {
     dflix: require('./sources/dflix'),
+    dflixlive: require('./sources/dflixlive'),
     dhakaflix: require('./sources/dhakaflix'),
     roarzone: require('./sources/roarzone'),
     ftpbd: require('./sources/ftpbd'),

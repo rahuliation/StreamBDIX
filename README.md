@@ -25,6 +25,7 @@ npx streambdix
 ## 🌐 Sources
 
 - [DFLIX](https://discoveryftp.net/)
+- [DFLIX Live](https://dflix.live/)
 - [DhakaFlix](http://172.16.50.12)
 - [RoarZone](https://roarzone.info)
 - [FTPBD](https://ftpbd.net)

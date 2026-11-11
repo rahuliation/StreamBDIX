@@ -13,6 +13,7 @@ const allSources = {
     ftpbd: require('./sources/ftpbd'),
     circleftp: require('./sources/circleftp'),
     iccftp: require('./sources/iccftp'),
+    cineplexbd: require('./sources/cineplexbd'),
 };
 
 function getEnabledSources() {

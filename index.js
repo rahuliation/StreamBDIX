@@ -17,7 +17,8 @@ const SOURCES = {
     roarzone: { name: 'RoarZone', urls: ['https://play.roarzone.info'] },
     ftpbd: { name: 'FTPBD', urls: ['http://media.ftpbd.net:8096'] },
     circleftp: { name: 'CircleFTP', urls: ['http://new.circleftp.net'] },
-    iccftp: { name: 'ICC FTP', urls: ['http://10.16.100.244'] }
+    iccftp: { name: 'ICC FTP', urls: ['http://10.16.100.244'] },
+    cineplexbd: { name: 'CineplexBD', urls: ['http://cineplexbd.net/search_ajax.php?q=test&limit=1'] }
 };
 
 const dataDir = () => process.env.DATA_DIR || path.join(process.env.HOME || process.env.USERPROFILE, '.streambdix');
@@ -105,7 +106,7 @@ async function checkSources() {
     await Promise.all(Object.entries(SOURCES).map(async ([k, v]) => {
         const checks = await Promise.all(v.urls.map(async url => {
             const start = Date.now();
-            try { await axios.get(url, { timeout: 3000 }); return { ok: true, ping: Date.now() - start }; }
+            try { await axios.get(url, { timeout: 5000 }); return { ok: true, ping: Date.now() - start }; }
             catch { return { ok: false }; }
         }));
         const good = checks.filter(c => c.ok);

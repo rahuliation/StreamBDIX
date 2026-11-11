@@ -131,8 +131,10 @@ const server = http.createServer((req, res) => {
 
     const isLocal = () => {
         if (req.headers['cf-connecting-ip'] || req.headers['cf-ray']) return false;
-        const remote = req.socket?.remoteAddress || '';
-        return remote === '127.0.0.1' || remote === '::1' || remote === '::ffff:127.0.0.1';
+        const remote = (req.socket?.remoteAddress || '').replace(/^::ffff:/, '');
+        if (remote === '127.0.0.1' || remote === '::1' || remote === 'localhost') return true;
+        if (/^10\./.test(remote) || /^192\.168\./.test(remote) || /^172\.(1[6-9]|2[0-9]|3[0-1])\./.test(remote)) return true;
+        return false;
     };
 
     if (url.pathname === '/api/config' && req.method === 'GET') {
@@ -274,14 +276,17 @@ const server = http.createServer((req, res) => {
 process.on('exit', () => { if (tunnelProcess) tunnelProcess.kill(); });
 process.on('SIGINT', () => { process.exit(); });
 
-server.listen(PORT, '127.0.0.1', () => {
+const HOST = process.env.HOST || '0.0.0.0';
+
+server.listen(PORT, HOST, () => {
+    const displayHost = HOST === '0.0.0.0' ? '127.0.0.1' : HOST;
     const center = (t, w = 51) => "║" + t.padStart((w + t.length) / 2).padEnd(w) + "║";
     console.log(`
 ╔═══════════════════════════════════════════════════╗
 ${center("StreamBDIX")}
 ╠═══════════════════════════════════════════════════╣
 ${center("")}
-${center(`http://127.0.0.1:${PORT}`)}
+${center(`http://${displayHost}:${PORT}`)}
 ${center("")}
 ${center("Keep terminal open while streaming")}
 ${center("Press Ctrl+C to stop")}

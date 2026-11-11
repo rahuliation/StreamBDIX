@@ -20,7 +20,7 @@ const SOURCES = {
     iccftp: { name: 'ICC FTP', urls: ['http://10.16.100.244'] }
 };
 
-const dataDir = () => path.join(process.env.HOME || process.env.USERPROFILE, '.streambdix');
+const dataDir = () => process.env.DATA_DIR || path.join(process.env.HOME || process.env.USERPROFILE, '.streambdix');
 const cfgPath = () => path.join(dataDir(), 'config.json');
 const tokenPath = () => path.join(dataDir(), '.token');
 

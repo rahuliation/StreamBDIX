@@ -1,0 +1,4 @@
+node_modules/
+.streambdix/
+.DS_Store
+

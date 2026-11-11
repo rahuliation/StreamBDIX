@@ -1,0 +1,37 @@
+name: streambdix
+services:
+  streambdix:
+    container_name: streambdix
+    build: .
+    image: streambdix:latest
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PORT=7001
+      - DATA_DIR=/data
+    volumes:
+      - /DATA/AppData/streambdix:/data
+    x-casaos:
+      envs:
+        - container: PORT
+          description:
+            en_us: Port for the addon server
+        - container: DATA_DIR
+          description:
+            en_us: Addon configuration directory
+      volumes:
+        - container: /data
+          description:
+            en_us: Persistent configuration storage
+      icon: https://raw.githubusercontent.com/Stremio/stremio-addon-sdk/master/doc/logo.png
+      title:
+        en_us: StreamBDIX
+      description:
+        en_us: Stremio addon for streaming from BDIX servers
+      developer: corpse
+      category: Media
+      main: streambdix
+      port_map: "7001"
+      scheme: http
+      index: /
+
